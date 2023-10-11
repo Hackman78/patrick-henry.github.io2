@@ -13,9 +13,8 @@
  */
 function createGreaterThanFilter(base) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
+
+    return function
     
     // YOUR CODE ABOVE HERE //
 }
@@ -56,7 +55,9 @@ function createStartsWithFilter(startsWith) {
 function createEndsWithFilter(endsWith) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function(char){
+        return endsWith.endsWith(char)
+    }
     
     
     // YOUR CODE ABOVE HERE //
