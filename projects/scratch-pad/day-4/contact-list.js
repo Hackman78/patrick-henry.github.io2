@@ -61,13 +61,22 @@ function makeContactList() {
            
            return contacts.find(contact => contact['nameFirst'].concat(' ', contact['nameLast']) == fullName? contact: undefined)
         },
-        removeContact: function(contact){
-            for (let i = 0; i < contacts.length; i++){
-                if (contacts[i] === contact){
-                    delete contacts[i]
-                }
+        removeContact: function(contact) {
+            // Assuming each contact has a unique ID property
+            var contactIndex = contacts.findIndex(c => c.id === contact.id);
+        
+            if (contactIndex !== -1) {
+                contacts.splice(contactIndex, 1);
             }
-                }
+        
+            // Optional: You can return true or false based on whether the contact was found and removed
+            return contactIndex !== -1;
+        },
+        printAllContactNames: function() {
+            var names = ''
+            names += contacts.map(contact => contact.nameFirst + ' ' + contact.nameLast)
+            return names.replaceAll(',','\n')
+        }
             }
         }
 
