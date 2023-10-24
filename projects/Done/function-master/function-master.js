@@ -19,7 +19,9 @@ function keysToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function valuesToString(object) {
-    return Object.values(object).join(' ')
+    var strArray = [];
+        strArray = Object.values(object)
+    return strArray.filter(value => typeof value === 'string').join(' ')
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -138,11 +140,11 @@ return object
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-    for (let i = 0; i < array.length; i++){
-        if (object.hasOwn(object, array[i])){
-        delete object[array[i]]
-    }}
-    return object
+   for (let i = 0; i < array.length; i++){
+        if (Object.keys(object).includes(array[i])){
+            delete object[array[i]]
+        }
+   }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -150,7 +152,13 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
-
+    output = [];
+        for (let i = 0; i < array.length; i++){
+            if (output.includes(array[i]) === false){
+                output.push(array[i])
+            }
+        }
+    return output
 }
 
 //////////////////////////////////////////////////////////////////////
