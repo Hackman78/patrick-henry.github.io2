@@ -455,9 +455,9 @@ _.reduce = function(array, func, seed){
                 previous = func(previous, array[i], i)
             }
     } else {
-        for (let i = 0; i < array.length; i++){
-            seed = array[1]
-        previous = func(previous, array[i + 1], i + 1)
+        previous = array[0]
+        for (let i = 1; i < array.length; i++){
+        previous = func(previous, array[i], i)
         }
     }
     return previous
@@ -477,7 +477,10 @@ _.reduce = function(array, func, seed){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-
+_.extend = function(object, ...object2){
+    Object.assign(object, ...object2)
+    return object 
+}
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
