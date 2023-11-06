@@ -279,9 +279,9 @@ _.reject = function(array, func){
 */
 _.partition = function(array, func){
     var output = _.filter(array, func);
-    var outputss = _.reject(array, func);
+    var outputs = _.reject(array, func);
     var result = []
-        result.push(output, outputss)
+        result.push(output, outputs)
     return result
 }
 
