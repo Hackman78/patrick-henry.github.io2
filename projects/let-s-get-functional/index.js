@@ -53,9 +53,16 @@ var averageBalance = function(array){
     return balance 
 };
 
-var firstLetterCount;
+var firstLetterCount = function(array, letter){
+    return array.filter(customer => customer.name.charAt(0).toLowerCase() === letter.toLowerCase()).length
+};
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = function(array, customer, letter){
+    var arr = []
+    for (let i = 0; i < array.length; i ++){
+        
+    }
+};
 
 var friendsCount;
 
