@@ -2,8 +2,10 @@
 
 'use strict';
 
+const { rest } = require('lodash');
 var customers = require('./data/customers.json');
 var _ = require('underbar');
+const object = require('underbar/object');
 
 /**
  * 1. Import your lodown module using the require() method,
@@ -45,30 +47,79 @@ var youngestCustomer = function(array){
     return _.reduce(array, (acc, curr) => acc.age < curr.age? acc: curr)['name']
 };;
 
-var averageBalance = function(array){
-    var balance = _.reduce(array, (curr, acc) => {
-        acc += curr.balance
-        return acc
-    }, 0) / array.length
-    return balance 
-};
+function averageBalance(data) {  
+    // Extract numeric values from the 'balance' property and calculate the average
+    const totalBalance = data.reduce((sum, customer) => {
+      // Extract numeric value from the 'balance' property
+      const balance = parseFloat(customer.balance.replace(/[^\d.-]/g, ''));
+  
+      // Check if the extracted balance is a valid number
+      if (!isNaN(balance)) {
+        return sum + balance;
+      } else {
+        throw new Error(`Invalid balance value for customer ${customer.name}`);
+      }
+    }, 0);
+  
+    const avgBalance = totalBalance / data.length;
+  
+    return avgBalance;
+  }
+  
+  
+  console.log(averageBalance(customers))
 
 var firstLetterCount = function(array, letter){
     return array.filter(customer => customer.name.charAt(0).toLowerCase() === letter.toLowerCase()).length
 };
 
 var friendFirstLetterCount = function(array, customer, letter){
-    var arr = []
-    for (let i = 0; i < array.length; i ++){
-        
-    }
+    var index = array.findIndex(cust => cust.name === customer)
+    return array[index].friends.filter(friend => friend.name.charAt(0).toLowerCase() === letter.toLowerCase()).length
 };
 
-var friendsCount;
+var friendsCount = function(array, name){
+    var result = []
+    for (let i = 0; i < array.length; i++){
+        if (array[i].friends.filter(friend => friend.name === name).length > 0){
+            result.push(array[i].name)
+        }
+    }
+    return result
+};
+//console.log(friendsCount(customers, 'Olga Newton'))
+var topThreeTags = function(array){
+  var result = {}
+  var results = []
+    for (let i = 0; i < array.length; i++){
+        for (let j = 0; j < array.length; j++){
+            if (!Object.keys(result).includes(array[i].tags[j])){
+                result[array[i].tags[j]] = 1
+            } else if (Object.keys(result).includes(array[i].tags[j])){
+                result[array[i].tags[j]] += 1
+            }   
+        }
+    }
+    for (let key in result){
+        if (result[key] === 3){
+            results.push(key)
+        }
+    }
+    return results
+};
 
-var topThreeTags;
-
-var genderCount;
+//console.log(topThreeTags(customers))
+var genderCount = function(array){
+    var result = {}
+    for (let i = 0; i < array.length; i++){
+        if (!Object.keys(result).includes(array[i].gender)){
+            result[array[i].gender] = 1
+        } else{
+            result[array[i].gender] += 1
+        }
+    }
+    return result
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
