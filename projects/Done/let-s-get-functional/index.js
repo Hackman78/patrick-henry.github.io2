@@ -56,8 +56,6 @@ function averageBalance(data) {
       // Check if the extracted balance is a valid number
       if (!isNaN(balance)) {
         return sum + balance;
-      } else {
-        throw new Error(`Invalid balance value for customer ${customer.name}`);
       }
     }, 0);
   
